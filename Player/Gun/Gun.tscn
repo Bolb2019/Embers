@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://mfhmpgv1dyjw"]
+
+[ext_resource type="Texture2D" uid="uid://dnfbu11ehjqc5" path="res://Player/Gun/Gun_temp.png" id="1_spd67"]
+[ext_resource type="Script" uid="uid://c7j5im3ic5ovy" path="res://Player/Gun/Shoot.gd" id="2_823yh"]
+
+[node name="Gun" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, -1.0000001)
+scale = Vector2(0.32969108, 0.32969108)
+texture = ExtResource("1_spd67")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
+rotation = -1.5707964
+target_position = Vector2(0, 500)
+collide_with_areas = true
+script = ExtResource("2_823yh")

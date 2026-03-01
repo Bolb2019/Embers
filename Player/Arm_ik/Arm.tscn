@@ -1,0 +1,149 @@
+[gd_scene load_steps=9 format=3 uid="uid://cc1c1nk1jscua"]
+
+[ext_resource type="PackedScene" uid="uid://bimrh1rts08op" path="res://Player/Arm_ik/Arm_top.tscn" id="1_5gb7q"]
+[ext_resource type="Script" uid="uid://dcl6vjnrkh3o0" path="res://Player/Gun/Flipping.gd" id="2_fll1m"]
+[ext_resource type="PackedScene" uid="uid://mfhmpgv1dyjw" path="res://Player/Gun/Gun.tscn" id="2_gc4sb"]
+[ext_resource type="Script" uid="uid://cfyu77k15gxq6" path="res://Player/Arm_ik/Target.gd" id="2_iamaq"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xolnt"]
+
+[sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_c7uba"]
+target_nodepath = NodePath("../../../IK Targets/target")
+tip_nodepath = NodePath("arm_top/arm_bottom/arm_wrist")
+ccdik_data_chain_length = 2
+joint_data/0/bone_index = 0
+joint_data/0/bone2d_node = NodePath("arm_top")
+joint_data/0/rotate_from_joint = false
+joint_data/0/enable_constraint = true
+joint_data/0/constraint_angle_min = 0.0
+joint_data/0/constraint_angle_max = 360.0
+joint_data/0/constraint_angle_invert = false
+joint_data/0/constraint_in_localspace = true
+joint_data/0/editor_draw_gizmo = true
+joint_data/1/bone_index = 1
+joint_data/1/bone2d_node = NodePath("")
+joint_data/1/rotate_from_joint = false
+joint_data/1/enable_constraint = true
+joint_data/1/constraint_angle_min = 84.999954
+joint_data/1/constraint_angle_max = 274.99997
+joint_data/1/constraint_angle_invert = true
+joint_data/1/constraint_in_localspace = true
+joint_data/1/editor_draw_gizmo = true
+
+[sub_resource type="SkeletonModification2DLookAt" id="SkeletonModification2DLookAt_tmm45"]
+bone_index = 2
+bone2d_node = NodePath("arm_top/arm_bottom/arm_wrist")
+target_nodepath = NodePath("../../../IK Targets/target/target_lookat")
+enable_constraint = true
+constraint_angle_min = 249.99997
+constraint_angle_max = 109.99996
+constraint_angle_invert = true
+constraint_in_localspace = true
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_i37yh"]
+resource_local_to_scene = true
+enabled = true
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DCCDIK_c7uba")
+modifications/1 = SubResource("SkeletonModification2DLookAt_tmm45")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterContainer" parent="." instance=ExtResource("1_5gb7q")]
+
+[node name="body" type="Node2D" parent="CharacterContainer"]
+
+[node name="top" type="Sprite2D" parent="CharacterContainer/body"]
+rotation = 0.08971895
+scale = Vector2(9.938166, 53.750683)
+texture = SubResource("CanvasTexture_xolnt")
+offset = Vector2(0.005244136, 0.42167073)
+
+[node name="bottom" type="Sprite2D" parent="CharacterContainer/body"]
+position = Vector2(-4.56963, 50.79794)
+rotation = -0.759248
+scale = Vector2(70.19243, 8.465737)
+texture = SubResource("CanvasTexture_xolnt")
+offset = Vector2(0.42293274, 0.024518304)
+
+[node name="wrist" type="Sprite2D" parent="CharacterContainer/body"]
+z_index = 99
+position = Vector2(44.02629, 6.6713753)
+rotation = 0.1116684
+scale = Vector2(24.084955, 8.341769)
+texture = SubResource("CanvasTexture_xolnt")
+offset = Vector2(0.41334623, 0.0032482147)
+
+[node name="Gun" parent="CharacterContainer/body/wrist" instance=ExtResource("2_gc4sb")]
+position = Vector2(0.4361805, 0.5015731)
+rotation = -0.01395203
+scale = Vector2(0.07509283, 0.18425639)
+skew = 0.011655688
+script = ExtResource("2_fll1m")
+
+[node name="bones" type="Node2D" parent="CharacterContainer"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="CharacterContainer/bones"]
+modification_stack = SubResource("SkeletonModificationStack2D_i37yh")
+
+[node name="arm_top" type="Bone2D" parent="CharacterContainer/bones/Skeleton2D"]
+rotation = -1.0825437
+scale = Vector2(0.99991596, 0.99991596)
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="arm_bottom" type="Bone2D" parent="CharacterContainer/bones/Skeleton2D/arm_top"]
+position = Vector2(0.00015830994, 51.00708)
+rotation = 1.0738802
+scale = Vector2(0.9999273, 0.9999273)
+rest = Transform2D(-4.371139e-08, 1, -1, -4.371139e-08, 0, 51)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="arm_wrist" type="Bone2D" parent="CharacterContainer/bones/Skeleton2D/arm_top/arm_bottom"]
+position = Vector2(63.97562, 1.7024136)
+rotation = -0.17245704
+scale = Vector2(1.0000025, 1.0000025)
+rest = Transform2D(-4.371139e-08, -1, 1, -4.371139e-08, 63.977352, 1.7022499)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="CharacterContainer/bones/Skeleton2D/arm_top/arm_bottom/arm_wrist"]
+position = Vector2(0.54557145, -1.587985)
+rotation = -0.21510792
+remote_path = NodePath("../../../../../../body/wrist")
+update_scale = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="CharacterContainer/bones/Skeleton2D/arm_top/arm_bottom"]
+remote_path = NodePath("../../../../../body/bottom")
+update_scale = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="CharacterContainer/bones/Skeleton2D/arm_top"]
+remote_path = NodePath("../../../../body/top")
+update_scale = false
+
+[node name="IK Targets" type="Node2D" parent="."]
+
+[node name="target" type="Node2D" parent="IK Targets"]
+position = Vector2(43, 8.000002)
+rotation = 0.39218047
+script = ExtResource("2_iamaq")
+
+[node name="target_lookat" type="Node2D" parent="IK Targets/target"]
+position = Vector2(44.25893, -10.730644)
+
+[node name="ColorRect" type="ColorRect" parent="IK Targets/target/target_lookat"]
+visible = false
+offset_left = -2.07069
+offset_top = -2.3900278
+offset_right = 37.92931
+offset_bottom = 37.609974
+scale = Vector2(0.10287533, 0.10287533)
+color = Color(1, 0, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="IK Targets/target"]
+visible = false
+offset_left = -2.07069
+offset_top = -2.3900278
+offset_right = 37.92931
+offset_bottom = 37.609974
+scale = Vector2(0.10287533, 0.10287533)
+color = Color(0, 1, 1, 1)
