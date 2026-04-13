@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bib5v8sb1nbdt"]
+[gd_scene load_steps=4 format=3 uid="uid://bib5v8sb1nbdt"]
 
 [ext_resource type="Script" uid="uid://ddqeth42fbyss" path="res://Player/Controls.gd" id="1_q3lat"]
-[ext_resource type="Texture2D" uid="uid://d2qum3uwerkpd" path="res://icon.svg" id="2_tok1r"]
-[ext_resource type="PackedScene" uid="uid://dwnit63xdh07j" path="res://Player/Arm_ik/Arm.tscn" id="3_tok1r"]
+[ext_resource type="Texture2D" uid="uid://dkwl0mjj86nci" path="res://Player/Player.png" id="2_q3lat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddoul"]
 size = Vector2(128, 128)
@@ -14,12 +13,9 @@ script = ExtResource("1_q3lat")
 shape = SubResource("RectangleShape2D_ddoul")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tok1r")
+texture = ExtResource("2_q3lat")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
-
-[node name="Node2D" parent="." instance=ExtResource("3_tok1r")]
-scale = Vector2(1.5, 1.5)
