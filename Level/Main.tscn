@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://1o0v1byb5ygj"]
+[gd_scene format=3 uid="uid://1o0v1byb5ygj"]
 
 [ext_resource type="Script" uid="uid://ygjeg6dpk7v1" path="res://Level/Map_gen.gd" id="1_ij12d"]
+[ext_resource type="Script" uid="uid://b7oehvcopbyy7" path="res://Level/beats.gd" id="1_v4ypu"]
 [ext_resource type="PackedScene" uid="uid://bib5v8sb1nbdt" path="res://Player/Player.tscn" id="2_xq4ua"]
+[ext_resource type="Script" uid="uid://c0mlwvfamp86e" path="res://Enemys/Enemy_spawner.gd" id="3_xq4ua"]
+[ext_resource type="AudioStream" uid="uid://bdwv4ygxh6y1h" path="res://Player/freesound_community-metronome-85688.mp3" id="5_5j4ky"]
 
 [sub_resource type="Environment" id="Environment_ij12d"]
 background_mode = 3
@@ -9,16 +12,22 @@ glow_enabled = true
 glow_intensity = 0.2
 glow_strength = 0.89
 glow_bloom = 0.35
-glow_blend_mode = 1
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=531185848]
+script = ExtResource("1_v4ypu")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1793775648]
 environment = SubResource("Environment_ij12d")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Map" type="Node2D" parent="." unique_id=601255760]
 script = ExtResource("1_ij12d")
 
-[node name="Player" parent="." instance=ExtResource("2_xq4ua")]
+[node name="Player" parent="." unique_id=1565090481 instance=ExtResource("2_xq4ua")]
 
-[connection signal="property_list_changed" from="Player" to="Node2D" method="_on_player_property_list_changed"]
+[node name="Enemies" type="Node2D" parent="." unique_id=1977717772]
+script = ExtResource("3_xq4ua")
+
+[node name="FreesoundCommunityMetronome85688" type="AudioStreamPlayer" parent="." unique_id=1735841328]
+stream = ExtResource("5_5j4ky")
+
+[connection signal="property_list_changed" from="Player" to="Map" method="_on_player_property_list_changed"]
