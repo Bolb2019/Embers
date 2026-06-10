@@ -33,5 +33,8 @@
 ## Setup
 Just like, download the file on itch that like works with your OS
 
+## AI use
+Claude was used for some code, but minimally
+
 ## Screenshots
 <img width="548" height="404" alt="Screenshot 2026-05-27 201633" src="https://github.com/user-attachments/assets/7f9e5058-f3ad-48bb-ad6d-c544e09091a3" />
